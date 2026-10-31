@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance — Staff Attendance</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">🏢</div>
+        <h2>Staff Attendance</h2>
+        <p>Admin Panel</p>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/admin" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+        <a href="/staff-management" class="nav-item"><span class="nav-icon">👥</span> Staff Management</a>
+        <a href="/attendance" class="nav-item active"><span class="nav-icon">📋</span> Attendance</a>
+        <a href="/reports" class="nav-item"><span class="nav-icon">📈</span> Reports</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">A</div>
+          <div>
+            <div class="user-name" id="user-name">Admin</div>
+            <div class="user-role">Administrator</div>
+          </div>
+        </div>
+        <button class="btn-logout" id="logout-btn">🚪 Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Attendance Records</h1>
+        <span class="date" id="current-date"></span>
+      </div>
+
+      <div class="page-content">
+        <!-- Filters -->
+        <div class="filter-bar">
+          <div class="form-group">
+            <label>Start Date</label>
+            <input type="date" id="filter-start">
+          </div>
+          <div class="form-group">
+            <label>End Date</label>
+            <input type="date" id="filter-end">
+          </div>
+          <div class="form-group">
+            <label>Employee</label>
+            <select id="filter-employee">
+              <option value="">All Employees</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:8px; align-items:flex-end;">
+            <button class="btn btn-primary" onclick="loadAttendance()">🔍 Search</button>
+            <button class="btn btn-outline" onclick="clearFilters()">✕ Clear</button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Attendance Records</h2>
+            <span id="record-count" style="color:var(--text-light); font-size:14px;"></span>
+          </div>
+          <div class="table-wrap">
+            <div id="attendance-container">
+              <div class="loading"><div class="spinner"></div><p>Loading...</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/attendance.js"></script>
+</body>
+</html>

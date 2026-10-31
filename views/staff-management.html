@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Management — Staff Attendance</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <!-- Confirm Modal -->
+  <div class="modal-overlay" id="confirm-modal" style="display:none;">
+    <div class="modal">
+      <h3 id="modal-title">Confirm Action</h3>
+      <p id="modal-message">Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-danger" id="modal-confirm-btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">🏢</div>
+        <h2>Staff Attendance</h2>
+        <p>Admin Panel</p>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/admin" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+        <a href="/staff-management" class="nav-item active"><span class="nav-icon">👥</span> Staff Management</a>
+        <a href="/attendance" class="nav-item"><span class="nav-icon">📋</span> Attendance</a>
+        <a href="/reports" class="nav-item"><span class="nav-icon">📈</span> Reports</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">A</div>
+          <div>
+            <div class="user-name" id="user-name">Admin</div>
+            <div class="user-role">Administrator</div>
+          </div>
+        </div>
+        <button class="btn-logout" id="logout-btn">🚪 Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Staff Management</h1>
+        <a href="/add-staff" class="btn btn-primary">➕ Add Staff</a>
+      </div>
+
+      <div class="page-content">
+        <div class="card">
+          <div class="card-header">
+            <h2>All Employees</h2>
+            <span id="staff-count" style="color:var(--text-light); font-size:14px;"></span>
+          </div>
+          <div class="table-wrap">
+            <div id="staff-table-container">
+              <div class="loading"><div class="spinner"></div><p>Loading...</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/staff-management.js"></script>
+</body>
+</html>

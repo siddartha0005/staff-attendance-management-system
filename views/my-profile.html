@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — Staff Attendance</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">🏢</div>
+        <h2>Staff Attendance</h2>
+        <p>Staff Portal</p>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/staff" class="nav-item">
+          <span class="nav-icon">🏠</span> Dashboard
+        </a>
+        <a href="/my-attendance" class="nav-item">
+          <span class="nav-icon">📋</span> My Attendance
+        </a>
+        <a href="/my-profile" class="nav-item active">
+          <span class="nav-icon">👤</span> My Profile
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">S</div>
+          <div>
+            <div class="user-name" id="user-name">Staff</div>
+            <div class="user-role">Staff Member</div>
+          </div>
+        </div>
+        <button class="btn-logout" id="logout-btn">🚪 Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>My Profile</h1>
+        <span class="date" id="current-date"></span>
+      </div>
+
+      <div class="page-content">
+        <div class="card" style="max-width:600px;">
+          <div class="card-header"><h2>Profile Details</h2></div>
+          <div class="card-body" id="profile-container">
+            <div class="loading"><div class="spinner"></div><p>Loading...</p></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/my-profile.js"></script>
+</body>
+</html>
