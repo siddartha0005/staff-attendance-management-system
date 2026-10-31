@@ -10,7 +10,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Ensure sessions directory exists
-const sessionsDir = path.join(__dirname, 'database', 'sessions');
+const sessionsDir = process.env.NODE_ENV === 'production'
+  ? '/data/sessions'
+  : path.join(__dirname, 'database', 'sessions');
 if (!fs.existsSync(sessionsDir)) fs.mkdirSync(sessionsDir, { recursive: true });
 
 app.use(express.json());
