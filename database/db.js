@@ -2,9 +2,7 @@ const initSqlJs = require('sql.js');
 const fs = require('fs');
 const path = require('path');
 
-const DB_PATH = process.env.NODE_ENV === 'production'
-  ? '/data/attendance.db'
-  : path.join(__dirname, 'attendance.db');
+const DB_PATH = path.join(__dirname, 'attendance.db');
 
 let db = null;
 
@@ -97,6 +95,20 @@ async function initialize() {
 
   save();
   console.log('✅ Database initialized');
+
+  // Auto-create admin if not exists
+  const existing = get('SELECT id FROM users WHERE email = ?', ['admin@company.com']);
+  if (!existing) {
+    const bcrypt = require('bcryptjs');
+    const hash = bcrypt.hashSync('Admin@123', 10);
+    runWrite(
+      `INSERT INTO users (employee_id, name, email, phone, department, designation, password_hash, role, status, joining_date)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'ADMIN', 'ACTIVE', ?)`,
+      ['ADMIN001', 'System Administrator', 'admin@company.com', '9999999999',
+       'Administration', 'System Admin', hash, new Date().toISOString().split('T')[0]]
+    );
+    console.log('✅ Admin account auto-created (admin@company.com / Admin@123)');
+  }
 }
 
 module.exports = { initialize, run, exec, all, get, runWrite, save };

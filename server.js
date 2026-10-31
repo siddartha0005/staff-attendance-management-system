@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
-const FileStore = require('session-file-store')(session);
 const path = require('path');
 const fs = require('fs');
 const db = require('./database/db');
@@ -9,17 +8,10 @@ const db = require('./database/db');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Ensure sessions directory exists
-const sessionsDir = process.env.NODE_ENV === 'production'
-  ? '/data/sessions'
-  : path.join(__dirname, 'database', 'sessions');
-if (!fs.existsSync(sessionsDir)) fs.mkdirSync(sessionsDir, { recursive: true });
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
-  store: new FileStore({ path: sessionsDir, ttl: 28800, retries: 1 }),
+const sessionConfig = {
   secret: process.env.SESSION_SECRET || 'fallback_secret',
   resave: false,
   saveUninitialized: false,
@@ -28,7 +20,16 @@ app.use(session({
     secure: process.env.NODE_ENV === 'production',
     maxAge: 8 * 60 * 60 * 1000
   }
-}));
+};
+
+if (process.env.NODE_ENV !== 'production') {
+  const FileStore = require('session-file-store')(session);
+  const sessionsDir = path.join(__dirname, 'database', 'sessions');
+  if (!fs.existsSync(sessionsDir)) fs.mkdirSync(sessionsDir, { recursive: true });
+  sessionConfig.store = new FileStore({ path: sessionsDir, ttl: 28800, retries: 1 });
+}
+
+app.use(session(sessionConfig));
 
 // Static files — disable cache in development
 app.use(express.static(path.join(__dirname, 'public'), {
